@@ -1,0 +1,31 @@
+Para correr el sistema
+1- Setear la información de la base de datos en .env
+2- Correr las migraciones y seeders en la bd php artisan migrate:fresh --seed
+3- Loguear con el admin y cargar usuarios y permisos.
+
+
+ 
+Cosas para recordar:
+
+Las rutas del Auth se manejan desde vendor/laravel/ui/src/AuthRouteMethods. comente las rutas de register.
+El registro de usuario esta eliminado, ya que solamente una persona con superusuario puede registrar a alguien o habria que agregar usuarios desde un seeder.
+El superusuario tiene contraseña admin admin eso despues hay que acordarlo y colocar una contraseña común.
+el usuario y rol admin no se pueden eliminar ni modificar desde la interfaz. (sólo código)
+
+CUIDADO CON EL MÉTODO SYNC EN LAS BD porque sincroniza la primera vez pero despeus ocn el mismo id te eliminad
+todo 
+Por ejemplo cargo el usuario admin con todos sus permisos
+para cargarle un nuevo permiso tomo sus permisos y le envío el ->attach()
+si vuelvo a realizar sync borra todo y le asigna ese nuevo permiso.
+-Para que el sync funcione como un attach debes mandarle como segundo parametro el false
+permissions()->sync($permission->id, false)
+
+Faltantes
+Revisar por que cuando se realiza una accion el boton crear nuevo desaparece cuando aparece el mensaje
+
+Falta que el admin pueda modificar la contraseña de un usuario
+
+Falta que un usuario pueda modificar sus datos y su password
+
+Falta agregarle permisos a los usuarios, permisos dispersos tabla permission_user
+
