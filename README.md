@@ -6,7 +6,7 @@ La finalidad del mismo es el de ser utilizado como base para la implementación 
 
 ## Installation
 
-Para la instalación del mismo, se debe tener instalado [Composer](https://getcomposer.org/).
+Para la instalación del mismo, se debe tener instalado [Composer](https://getcomposer.org/) y [Node](https://nodejs.org/es/download/).
 Descargar el archivo sistema_base en una carpeta y luego correr el comando:
 
 ```bash
