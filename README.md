@@ -7,17 +7,18 @@ La finalidad del mismo es el de ser utilizado como base para la implementación 
 ## Installation
 
 Para la instalación del mismo, se debe tener instalado [Composer](https://getcomposer.org/) y [Node](https://nodejs.org/es/download/).
-Descargar el archivo sistema_base en una carpeta y luego correr el comando:
+Descargar el archivo sistema_base en una carpeta y luego correr los comandos:
 
 ```bash
 composer update
+npm install
 ```
 
 ## Usage
 
 Para utilizar la herramienta hay que segir una serie de pasos:
 
-1- Configurar en el archivo .env la información correspondiente a la base de datos a utilizar y el servidor de emails.
+1- Configurar en el archivo .env la información correspondiente a la base de datos a utilizar y el servidor de emails (se puede probar con mailtrap).
 
 ```php
 DB_CONNECTION=mysql
@@ -43,14 +44,32 @@ php artisan migrate:fresh --seed
 ```
 3- Ejecutar el servidor e ingresar con el usuario **admin** y contraseña **admin**
 
+
 ## Consideraciones
-Agregar los permisos corresponde al programador. Para ello debe agregarlos directamente en la base de datos con el slug correspondiente en la tabla permissions. También puede hacerlo desde el archivo
+Agregar los permisos corresponde al programador. Para ello debe agregarlos directamente en la base de datos con el slug correspondiente en la tabla permissions. También puede hacerlo como un seed desde el archivo:
 
 ```
 database> seed> PermisosInitSeed.php
 ``` 
 
 La contraseña del administrador también puede modficarse desde **PermisosInitSeed-php**
+
+Los archivos para modificar el email de recuperación de contraseña estan dentro de la ruta:
+```
+resources> vendor
+``` 
+Si desea desactivar el autoregistro de usuario debe dirigirse al archivo:
+```
+vendor> laravel> ui> src>AuthRouteMethods.php
+```
+
+y comentar las líneas referidas a las rutas del registro:
+```php
+if ($options['register'] ?? true) {
+                //$this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+                //$this->post('register', 'Auth\RegisterController@register');
+            }
+```
 
 ## License
 MIT License
