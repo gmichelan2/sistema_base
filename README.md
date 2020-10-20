@@ -1,4 +1,4 @@
-# SistemaRolesPermisos
+# sistema_base
 
 El Sistema_base es un sistema de usuarios, roles y permisos realizado en Laravel 7 para el Ente Provincial de Energía del Neuquén.
 
@@ -52,7 +52,7 @@ Agregar los permisos corresponde al programador. Para ello debe agregarlos direc
 database> seed> PermisosInitSeed.php
 ``` 
 
-La contraseña del administrador también puede modficarse desde **PermisosInitSeed-php**
+La contraseña del administrador también puede modficarse desde **PermisosInitSeed-php**.
 
 Los archivos para modificar el email de recuperación de contraseña estan dentro de la ruta:
 ```
