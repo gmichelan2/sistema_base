@@ -19,13 +19,3 @@ para cargarle un nuevo permiso tomo sus permisos y le envío el ->attach()
 si vuelvo a realizar sync borra todo y le asigna ese nuevo permiso.
 -Para que el sync funcione como un attach debes mandarle como segundo parametro el false
 permissions()->sync($permission->id, false)
-
-Faltantes
-Revisar por que cuando se realiza una accion el boton crear nuevo desaparece cuando aparece el mensaje
-
-Falta que el admin pueda modificar la contraseña de un usuario
-
-Falta que un usuario pueda modificar sus datos y su password
-
-Falta agregarle permisos a los usuarios, permisos dispersos tabla permission_user
-
