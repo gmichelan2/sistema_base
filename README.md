@@ -71,6 +71,8 @@ if ($options['register'] ?? true) {
             }
 ```
 
+Si queremos que los mails lleguen con el nombre del sistema que se está utilizando y no con "sistema_base" por defecto, debemos modificar la variable APP_NAME, dentro del archivo .env
+
 ## License
 MIT License
 
