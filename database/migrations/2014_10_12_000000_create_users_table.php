@@ -20,7 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             //$table->timestamp('email_verified_at')->nullable();
             $table->string('username')->unique();//hay que lograr que loguee por nickname y contraseña
+            $table->string('cuil')->unique();
             $table->string('password');
+            $table->integer('changedpassword')->default('0');
             $table->rememberToken();
             $table->timestamps();
 

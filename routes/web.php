@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Gate;
+use App\Http\Middleware\PrimerLogin;
 
 use App\User;
 use App\Role;
@@ -26,7 +27,7 @@ Route::resources(['notas'=>'NotasController']);
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware(PrimerLogin::class);
 
 Route::resource('/role', 'RoleController')->names('role');//names porque son varios recursos
 
@@ -43,4 +44,5 @@ Route::get('/testdb',function(){
 });
 
 
-Route::resource('/user','UserController')->names('user');//['except'=>['create','store']] se pueden restringir
+Route::resource('/user','UserController')->names('user')->middleware(PrimerLogin::class);//['except'=>['create','store']] se pueden restringir
+Route::get('/primerIngreso', 'UserController@resetPrimerIngreso')->name('primerIngreso');

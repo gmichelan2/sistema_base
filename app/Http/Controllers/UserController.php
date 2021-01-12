@@ -9,6 +9,8 @@ use App\Permission;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -40,7 +42,8 @@ class UserController extends Controller
     {
         $this->authorize('create',User::class);//usamos el método create de la politica y le pasamos el modelo
         $roles = Role::get(); //igual que all()
-        return view('user.create', compact('roles'));
+        $users=DB::connection('rh_db_connection')->table('rh_agente')->where('activo',true)->orderBy('apellido','ASC')->get();
+        return view('user.create', compact('roles','users'));
     }
 
     /**
@@ -53,18 +56,34 @@ class UserController extends Controller
     {
         //dd($request);
         $this->authorize('store', User::class);
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'surname'=>'required|string|max:255',
+        //     'email'=>'required|email',
+        //     'username' =>'required|string|max:255|unique:users,username',
+        //     'password' => 'required|string|min:8|confirmed',
+        //     'role'=>'required',
+        // ]);
         $request->validate([
-            'name' => 'required|string|max:255',
-            'surname'=>'required|string|max:255',
-            'email'=>'required|email',
-            'username' =>'required|string|max:255|unique:users,username',
-            'password' => 'required|string|min:8|confirmed',
-            'role'=>'required',
+            'cuil'=>'required|unique:users,cuil',
+            'role'=>'required'
         ]);
 
-        $request->merge(['password'=>Hash::make($request->get('password'))]);
-        $user=User::create($request->all());
-        
+        //$request->merge(['password'=>Hash::make($request->get('password'))]);
+        $usuario=DB::connection("rh_db_connection")->table('rh_agente')->where('cuil',$request->get('cuil'))->get();
+        $cuenta=DB::connection('seguridad_db_connection')->table('usuario')->where('usu_agente',$usuario[0]->agente)->get();
+        $email=$cuenta[0]->usu_mail;
+        $username=explode('@',$email);
+        $username=$username[0];
+        $nuevoUsuario=[ 'name'=>$usuario[0]->nombre,
+                        'surname'=>$usuario[0]->apellido,
+                        'email'=>$email,
+                        'username'=>$username,
+                        'cuil'=>$usuario[0]->cuil,
+                        'password'=>Hash::make($usuario[0]->doc_numero),
+                        'changedpassword'=>0
+                        ];
+        $user=User::create($nuevoUsuario);
 
         //al crear el nuevo usuario debo meterle los permisos del role asignado en la tabla permission_user
         $user->roles()->sync($request->get('role'));
@@ -76,6 +95,12 @@ class UserController extends Controller
                 }
             }
         }
+        //hay que agregar siempre por default los permisos bpasicos de usuario que son los referidos
+        //a ver su perfil y editar su información (userown.show y userown.edit)
+        $permiso=Permission::where('slug','userown.show')->first();
+        $permiso2=Permission::where('slug','userown.edit')->first();
+        $permisos[]=$permiso->id;
+        $permisos[]=$permiso2->id;
 
         $user->permissions()->sync($permisos);//sincronizo los permisos obtenidos
 
@@ -230,5 +255,12 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('user.index')->with('status_success','Usuario eliminado exitosamente');
+    }
+
+    public function resetPrimerIngreso(){
+        //dd(Auth::user());
+        $user=User::find(Auth::user()->id);
+        //dd($user);
+        return view('user.resetpassword', compact('user'));
     }
 }

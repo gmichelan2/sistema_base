@@ -30,11 +30,9 @@
                                 <label for="username">Nombre Usuario</label-->
                                 <input type="text" class="form-control" id="username" placeholder="username" name="username" value="{{old('username', $user->username)}}" disabled>
                             </div>
-                            @if($user->username!='admin')
-                                <div class="form-group">
-                                    <a href="{{route('passwordown.edit', $user->id)}}" class="btn btn-danger">Modificar contraseña</a>
-                                </div>
-                            @endif
+                            <div class="form-group">
+                                <a href="{{route('passwordown.edit', $user->id)}}" class="btn btn-danger">Modificar contraseña</a>
+                            </div>
                             <hr>
                             <h3>Roles asignados:</h3>
                             @can('isAdmin')

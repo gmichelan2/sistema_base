@@ -37,15 +37,10 @@ class PermisosInitSeeder extends Seeder
             'surname' =>'admin',
             'email' => 'admin@epen.gov.ar',
             'username' =>'admin',
+            'cuil'=>'0-00000000-0',
             'password' => Hash::make('admin')//hay que establecer un password privado pero estandar
         ]);
 
-       /* $userbasic= User::create([
-            'name' => 'gaston',
-            'surname' =>'michelan',
-            'nick' =>'gmichelan',
-            'password' => Hash::make('gmichelan')//hay que establecer un password privado pero estandar
-        ]);*/
 
         //rol admin
         $rolAdmin=Role::create([

@@ -17,6 +17,14 @@
                             <h3>Datos requeridos</h3>
                             <hr>
                             <div class="form-group">
+                                <label for="listausuarios">Seleccione el usuario:</label>
+                                <select class="form-control" id="listausuarios" name="cuil">
+                                  @foreach($users as $user)
+                                    <option value="{{$user->cuil}}" @if(old('cuil')!==null && $user->cuil==old('cuil')) selected @endif>{{$user->apellido}} {{$user->nombre}} {{$user->cuil}}</option>
+                                  @endforeach
+                                </select>
+                            </div>
+                            <!--div class="form-group">
                                 <input type="text" class="form-control" id="name" placeholder="Nombres" name="name"
                                 value="{{old('name')}}" required autocomplete="name">
                             </div>
@@ -34,7 +42,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" id="password-confirm" placeholder="Repita el password" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                            </div-->
                             <hr>
                             <h3>Roles</h3>
                             @foreach($roles as $role)
@@ -47,6 +55,9 @@
                                     @endif
                                     @if($role->slug=='adminfullaccess')
                                         disabled
+                                    @elseif($role->slug=='basicuser')
+                                        checked
+
                                     @endif
                                     >
                                     <label class="form-check-label" for="role_{{$role->id}}">
