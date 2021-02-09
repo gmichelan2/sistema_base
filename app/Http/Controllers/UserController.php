@@ -237,6 +237,7 @@ class UserController extends Controller
 
         $updatedUser=User::find($user->id);
         $updatedUser->password=$request->get('contrasenia');
+        $updatedUser->changedpassword=1;
         $updatedUser->save();
 
         return redirect()->route('user.show', compact('user'))->with('status_success', 'Contraseña modificada');
