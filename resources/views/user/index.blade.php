@@ -48,9 +48,15 @@
                                 <td>{!!$user->email!!}</td>
                                 <td>{!!$user->username!!}</td>
                                 <td>
-                                @isset($user->roles[0]->name)
+                                   @if($user->roles!=null)
+                                    @foreach($user->roles as $role)
+                                        {{$role->name}}
+                                        <br>
+                                    @endforeach
+                                   @endif 
+                                {{-- @isset($user->roles[0]->name)
                                     {{$user->roles[0]->name}}
-                                @endisset    
+                                @endisset     --}}
                                 </td>
                                 <td>
                                 @can('view',[$user, ['user.show','userown.show']])<!--Es con politica y no con gates-->
