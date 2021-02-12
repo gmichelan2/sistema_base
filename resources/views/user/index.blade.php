@@ -29,25 +29,25 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nombres</th>
-                            <th scope="col">Apellido</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Nombre de usuario</th>
-                            <th scope="col">Rol(es)</th>
-                            <th colspan="3"></th>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">Nombres</th>
+                            <th scope="col" class="text-center">Apellido</th>
+                            <th scope="col" class="text-center">Email</th>
+                            <th scope="col" class="text-center">Nombre de usuario</th>
+                            <th scope="col" class="text-center">Rol(es)</th>
+                            <th colspan="3" class="text-center">Operaciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                              @foreach($users as $user)
                              <tr>
-                                <th scope="row">{{$user->id}}</th>
-                                <td>{!!$user->name!!}</td>
-                                <td>{!!$user->surname!!}</td>
-                                <td>{!!$user->email!!}</td>
-                                <td>{!!$user->username!!}</td>
-                                <td>
+                                <th scope="row" class="text-center">{{$user->id}}</th>
+                                <td class="text-center">{!!$user->name!!}</td>
+                                <td class="text-center">{!!$user->surname!!}</td>
+                                <td class="text-center">{!!$user->email!!}</td>
+                                <td class="text-center">{!!$user->username!!}</td>
+                                <td class="text-center">
                                    @if($user->roles!=null)
                                     @foreach($user->roles as $role)
                                         {{$role->name}}
@@ -63,7 +63,7 @@
                                     <a class="btn btn-info" href="{{route('user.show', $user->id)}}">Mostrar</a>
                                 @endcan
                                 </td>
-                                <td>
+                                <td class="text-center">
                                 @can('update', [$user, ['user.edit','userown.edit']])
                                     @if($user->username!='admin')
                                         <a class="btn btn-success" href="{{route('user.edit', $user->id)}}">Editar</a>
@@ -72,7 +72,7 @@
                                     @endif
                                 @endcan    
                                 </td>
-                                <td>
+                                <td class="text-center">
                                 @can('haveaccess','user.destroy')
                                     @if($user->username!=='admin')
                                         <form action="{{route('user.destroy', $user->id)}}" method="POST">
