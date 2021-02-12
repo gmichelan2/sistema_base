@@ -23,7 +23,6 @@ Route::get('/', function(){
     return view('welcome');
 });
 
-Route::resources(['notas'=>'NotasController']);
 
 Auth::routes();
 
