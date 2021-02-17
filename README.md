@@ -73,6 +73,18 @@ if ($options['register'] ?? true) {
 
 Si queremos que los mails lleguen con el nombre del sistema que se está utilizando y no con "sistema_base" por defecto, debemos modificar la variable APP_NAME, dentro del archivo .env
 
+Para que acepte los emails autofirmados debemos colocar dentro de config/mail.php en el protocolo smtp el siguiente atributo:
+
+```php
+'stream' =>[
+                'ssl' => [
+                    'allow_self_signed' => true,
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                ],
+            ],
+```
+
 ## License
 MIT License
 
